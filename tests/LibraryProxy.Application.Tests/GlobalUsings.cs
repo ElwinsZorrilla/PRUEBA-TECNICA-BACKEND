@@ -1,0 +1,11 @@
+global using Xunit;
+global using Moq;
+global using FluentAssertions;
+global using AutoMapper;
+global using MediatR;
+global using LibraryProxy.Application.DTOs;
+global using LibraryProxy.Application.Mappings;
+global using LibraryProxy.Domain.Entities;
+global using LibraryProxy.Domain.Exceptions;
+global using LibraryProxy.Domain.Interfaces;
+global using FluentValidation;

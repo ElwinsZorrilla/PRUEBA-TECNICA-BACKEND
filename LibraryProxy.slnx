@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LibraryProxy.API/LibraryProxy.API.csproj" />
+    <Project Path="src/LibraryProxy.Application/LibraryProxy.Application.csproj" />
+    <Project Path="src/LibraryProxy.Domain/LibraryProxy.Domain.csproj" />
+    <Project Path="src/LibraryProxy.Infrastructure/LibraryProxy.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LibraryProxy.Application.Tests/LibraryProxy.Application.Tests.csproj" />
+  </Folder>
+</Solution>

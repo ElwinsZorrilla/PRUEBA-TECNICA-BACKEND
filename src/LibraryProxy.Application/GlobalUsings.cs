@@ -1,0 +1,9 @@
+global using MediatR;
+global using AutoMapper;
+global using FluentValidation;
+global using LibraryProxy.Domain.Entities;
+global using LibraryProxy.Domain.Interfaces;
+global using LibraryProxy.Domain.Exceptions;
+global using LibraryProxy.Application.DTOs;
+global using LibraryProxy.Application.Common.Notifications;
+global using Serilog;

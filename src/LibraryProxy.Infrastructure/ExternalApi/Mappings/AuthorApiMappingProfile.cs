@@ -1,0 +1,13 @@
+using AutoMapper;
+using LibraryProxy.Domain.Entities;
+using LibraryProxy.Infrastructure.ExternalApi.Models;
+
+namespace LibraryProxy.Infrastructure.ExternalApi.Mappings;
+
+public sealed class AuthorApiMappingProfile : Profile
+{
+    public AuthorApiMappingProfile()
+    {
+        CreateMap<AuthorApiModel, Author>();
+    }
+}

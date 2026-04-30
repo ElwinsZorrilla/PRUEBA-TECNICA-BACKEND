@@ -1,0 +1,16 @@
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using LibraryProxy.Application.DTOs;
+global using LibraryProxy.Application.Features.Books.Queries.GetAllBooks;
+global using LibraryProxy.Application.Features.Books.Queries.GetBookById;
+global using LibraryProxy.Application.Features.Books.Queries.GetBooksPagedQuery;
+global using LibraryProxy.Application.Features.Books.Commands.CreateBook;
+global using LibraryProxy.Application.Features.Books.Commands.UpdateBook;
+global using LibraryProxy.Application.Features.Books.Commands.DeleteBook;
+global using LibraryProxy.Application.Features.Authors.Queries.GetAllAuthors;
+global using LibraryProxy.Application.Features.Authors.Queries.GetAuthorById;
+global using LibraryProxy.Application.Features.Authors.Queries.GetAuthorsPagedQuery;
+global using LibraryProxy.Application.Features.Authors.Commands.CreateAuthor;
+global using LibraryProxy.Application.Features.Authors.Commands.UpdateAuthor;
+global using LibraryProxy.Application.Features.Authors.Commands.DeleteAuthor;
+global using LibraryProxy.Domain.Common;

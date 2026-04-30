@@ -1,0 +1,11 @@
+global using AutoMapper;
+global using System.Net;
+global using System.Net.Http.Json;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using LibraryProxy.Domain.Entities;
+global using LibraryProxy.Domain.Exceptions;
+global using LibraryProxy.Domain.Interfaces;
+global using LibraryProxy.Infrastructure.ExternalApi;
+global using LibraryProxy.Infrastructure.ExternalApi.Models;
+global using Microsoft.Extensions.Logging;
