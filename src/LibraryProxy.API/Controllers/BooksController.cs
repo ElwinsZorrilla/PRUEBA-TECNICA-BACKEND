@@ -1,7 +1,7 @@
 namespace LibraryProxy.API.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/[controller]")]
 [Produces("application/json")]
 public class BooksController : ControllerBase
 {

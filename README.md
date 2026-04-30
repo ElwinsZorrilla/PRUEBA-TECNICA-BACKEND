@@ -72,23 +72,23 @@ Una vez corriendo, tienes disponibles:
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/api/v1/books` | Listar todos |
-| GET | `/api/v1/books/paged` | Listar paginado con cursor |
-| GET | `/api/v1/books/{id}` | Obtener uno |
-| POST | `/api/v1/books` | Crear |
-| PUT | `/api/v1/books/{id}` | Actualizar |
-| DELETE | `/api/v1/books/{id}` | Eliminar |
+| GET | `/api/books` | Listar todos |
+| GET | `/api/books/paged` | Listar paginado con cursor |
+| GET | `/api/books/{id}` | Obtener uno |
+| POST | `/api/books` | Crear |
+| PUT | `/api/books/{id}` | Actualizar |
+| DELETE | `/api/books/{id}` | Eliminar |
 
 ### Authors
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/api/v1/authors` | Listar todos |
-| GET | `/api/v1/authors/paged` | Listar paginado con cursor |
-| GET | `/api/v1/authors/{id}` | Obtener uno |
-| POST | `/api/v1/authors` | Crear |
-| PUT | `/api/v1/authors/{id}` | Actualizar |
-| DELETE | `/api/v1/authors/{id}` | Eliminar |
+| GET | `/api/authors` | Listar todos |
+| GET | `/api/authors/paged` | Listar paginado con cursor |
+| GET | `/api/authors/{id}` | Obtener uno |
+| POST | `/api/authors` | Crear |
+| PUT | `/api/authors/{id}` | Actualizar |
+| DELETE | `/api/authors/{id}` | Eliminar |
 
 ## Cómo funciona internamente
 
