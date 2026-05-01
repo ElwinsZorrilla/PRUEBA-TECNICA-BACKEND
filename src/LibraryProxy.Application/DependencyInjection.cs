@@ -1,6 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using LibraryProxy.Application.Common.Behaviors;
+using LibraryProxy.Application.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LibraryProxy.Application;
@@ -20,6 +21,8 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        services.AddSingleton<IAuthorEnrichmentService, AuthorEnrichmentService>();
 
         return services;
     }

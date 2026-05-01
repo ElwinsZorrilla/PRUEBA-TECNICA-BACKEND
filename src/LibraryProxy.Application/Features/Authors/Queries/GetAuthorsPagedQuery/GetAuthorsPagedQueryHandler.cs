@@ -1,29 +1,31 @@
-using AutoMapper;
+using LibraryProxy.Application.Common.Services;
 using LibraryProxy.Domain.Common;
-using LibraryProxy.Domain.Entities;
-using LibraryProxy.Domain.Interfaces;
-using MediatR;
 
 namespace LibraryProxy.Application.Features.Authors.Queries.GetAuthorsPagedQuery;
 
 public class GetAuthorsPagedQueryHandler : IRequestHandler<GetAuthorsPagedQuery, CursorPage<AuthorDto>>
 {
-    private readonly IAuthorRepository _repository;
-    private readonly IMapper _mapper;
+    private readonly IAuthorRepository _authorRepository;
+    private readonly IBookRepository _bookRepository;
+    private readonly IAuthorEnrichmentService _enrichment;
 
-    public GetAuthorsPagedQueryHandler(IAuthorRepository repository, IMapper mapper)
+    public GetAuthorsPagedQueryHandler(
+        IAuthorRepository authorRepository,
+        IBookRepository bookRepository,
+        IAuthorEnrichmentService enrichment)
     {
-        _repository = repository;
-        _mapper = mapper;
+        _authorRepository = authorRepository;
+        _bookRepository = bookRepository;
+        _enrichment = enrichment;
     }
 
     public async Task<CursorPage<AuthorDto>> Handle(GetAuthorsPagedQuery request, CancellationToken cancellationToken)
     {
         var pageSize = Math.Max(1, Math.Min(request.PageSize, 100));
-        var allAuthors = await _repository.GetAllAsync(cancellationToken);
+        var allAuthors = (await _authorRepository.GetAllAsync(cancellationToken)).ToList();
+        var allBooks = (await _bookRepository.GetAllAsync(cancellationToken)).ToList();
 
-        var items = new List<Author>(allAuthors);
-        items.Sort((a, b) => a.Id.CompareTo(b.Id));
+        allAuthors.Sort((a, b) => a.Id.CompareTo(b.Id));
 
         var startIndex = 0;
         if (!string.IsNullOrEmpty(request.Cursor))
@@ -32,7 +34,7 @@ public class GetAuthorsPagedQueryHandler : IRequestHandler<GetAuthorsPagedQuery,
             {
                 var decodedBytes = Convert.FromBase64String(request.Cursor);
                 var cursorId = int.Parse(System.Text.Encoding.UTF8.GetString(decodedBytes));
-                startIndex = items.FindIndex(a => a.Id > cursorId);
+                startIndex = allAuthors.FindIndex(a => a.Id > cursorId);
                 if (startIndex == -1)
                 {
                     return new CursorPage<AuthorDto>
@@ -50,8 +52,8 @@ public class GetAuthorsPagedQueryHandler : IRequestHandler<GetAuthorsPagedQuery,
             }
         }
 
-        var hasMore = startIndex + pageSize < items.Count;
-        var pageItems = items.Skip(startIndex).Take(pageSize).ToList();
+        var hasMore = startIndex + pageSize < allAuthors.Count;
+        var pageItems = allAuthors.Skip(startIndex).Take(pageSize).ToList();
 
         var nextCursor = hasMore && pageItems.Count > 0
             ? Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(pageItems[^1].Id.ToString()))
@@ -61,11 +63,11 @@ public class GetAuthorsPagedQueryHandler : IRequestHandler<GetAuthorsPagedQuery,
             ? Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(pageItems[0].Id.ToString()))
             : null;
 
-        var mappedItems = _mapper.Map<List<AuthorDto>>(pageItems);
+        var mappedItems = _enrichment.EnrichMany(pageItems, allBooks, allAuthors);
 
         return new CursorPage<AuthorDto>
         {
-            Items = mappedItems.AsReadOnly(),
+            Items = mappedItems,
             NextCursor = nextCursor,
             PreviousCursor = previousCursor,
             PageSize = pageSize

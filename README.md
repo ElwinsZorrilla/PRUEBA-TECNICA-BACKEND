@@ -90,6 +90,10 @@ Una vez corriendo, tienes disponibles:
 | PUT | `/api/authors/{id}` | Actualizar |
 | DELETE | `/api/authors/{id}` | Eliminar |
 
+Los endpoints de lectura devuelven el DTO con dos campos calculados a partir de la API externa: `bookTitle` (título del libro asociado al `idBook` del autor) y `bookCount`. El cálculo lo hace el `AuthorEnrichmentService` en la capa Application, así el frontend recibe el dato ya enriquecido.
+
+**Sobre el campo `bookCount`**: la FakeRestAPI tiene una relación 1:N entre Book y Author (un libro puede tener varios autores, pero cada autor está asociado a un único libro). Por esto, "número de libros publicados por autor" siempre sería 1, lo cual no aporta información. En su lugar, el campo `bookCount` representa la cantidad total de autores que comparten el libro de este autor — es decir, el tamaño del equipo de coautoría del libro asociado. Esto permite mostrar un dato significativo del dataset y se documenta como decisión de diseño dada la naturaleza de la API externa.
+
 ## Cómo funciona internamente
 
 ### CQRS con MediatR
